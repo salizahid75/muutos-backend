@@ -21,6 +21,7 @@ const articleRouter = require("./routes/article-router");
 const paymentRouter = require("./routes/payment-router");
 const adminRouter = require("./routes/admin-router");
 const reviewRouter = require("./routes/review-router");
+const operationRouter = require("./routes/operation-router");
 
 const app = express();
 
@@ -45,6 +46,7 @@ app.use("/api", bannerRouter.routes);
 app.use("/api", productRouters.routes);
 app.use("/api", adminRouter.routes);
 app.use("/api", reviewRouter.routes);
+app.use("/api", operationRouter.routes);
 app.use("/upload", express.static("upload"));
 
 app.listen(config.port, () =>
