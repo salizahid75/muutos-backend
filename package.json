@@ -1,0 +1,41 @@
+{
+  "name": "muutosworkspace",
+  "version": "1.0.0",
+  "description": "muutos backend work space , Admin panel and APIs.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "author": "Harsh Dalwe",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/firestore": "^4.15.1",
+    "@google-cloud/storage": "^5.12.0",
+    "antd": "^4.16.13",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "firebase": "^8.10.0",
+    "multer": "^1.4.2",
+    "nodemailer": "^6.6.3",
+    "stripe": "^8.184.0",
+    "uuidv4": "^6.2.12"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/multer": "^1.4.7",
+    "@types/node": "^16.4.7",
+    "nodemon": "^2.0.14"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/muutos-me/api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/muutos-me/api/issues"
+  },
+  "homepage": "https://github.com/muutos-me/api#readme"
+}
