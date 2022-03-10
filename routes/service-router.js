@@ -53,7 +53,7 @@ router.post(
 );
 router.post("/updateServiceFieldById", updateServiceFieldById);
 router.post("/deleteServiceById/", deleteService);
-router.get("/getFeaturedServices", getFeaturedServices);
+router.post("/getFeaturedServices", getFeaturedServices);
 router.post("/addToFeaturedServices", addToFeaturedServices);
 router.post("/removeFromFeaturedServices", removeFromFeaturedServices);
 router.post("/getServiceByType", getServiceByType);

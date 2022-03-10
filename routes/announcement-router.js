@@ -1,5 +1,5 @@
 const express = require('express');
-const { addAnnouncement , getAllAnnouncements, getAnnouncement, updateAnnouncement, deleteAnnouncement } = require('../controller/announcementController');
+const { addAnnouncement , getAllAnnouncements, getAnnouncement, updateAnnouncement, deleteAnnouncement, getAllAnnouncementsByVendor } = require('../controller/announcementController');
 
 const router = express.Router();
 
@@ -27,7 +27,8 @@ const upload = multer({
 
 
 
-router.post('/announcement', upload.single('image'), addAnnouncement);
+router.post('/announcement', addAnnouncement);
+router.post('/getAllAnnouncementsByVendor', getAllAnnouncementsByVendor);
 router.get('/allAnnouncements', getAllAnnouncements);
 router.post('/announcementById/', getAnnouncement);
 router.post('/updateAnnouncement/', updateAnnouncement);

@@ -57,7 +57,7 @@ router.post(
     updateProductById
 );
 router.post("/deleteProductById", deleteProduct);
-router.get("/getFeaturedProducts", getFeaturedProducts);
+router.post("/getFeaturedProducts", getFeaturedProducts);
 router.post("/addToFeaturedProducts", addToFeaturedProducts);
 router.post("/updateProductFieldById", updateProductFieldById);
 router.post("/removeFromFeaturedProducts", removeFromFeaturedProducts);

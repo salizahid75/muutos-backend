@@ -7,24 +7,37 @@ const firestore = firebase.firestore();
 const { uuid } = require('uuidv4');
 
 const addArticle = async (req, res, next) => {
-
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    today = mm + '/' + dd + '/' + yyyy;
     try {
         const rawData = req.body;
         const file = req.files;
-        const { 
+        console.log(file)
+        var images = [];
+        file.forEach(img=>{
+            images.push(img.filename);
+        })
+        const {
+            vendorId, 
             title,
             subtitle,
             description,
-            images
+            category,
         } = req.body;
         const data = {
+            vendorId:vendorId,
             title:title,
             subtitle:subtitle,
             description:description,
+            category:category,
             images:images,
-            isFeatured:0
+            likes:0,
+            isFeatured:0,
+            addedOn:today
         }
-        console.log('data:' + JSON.stringify(data))
         await firestore.collection('articles').add(data);
         res.send({ status: "active", data: 'Article added successfully.' })
     }
@@ -36,7 +49,7 @@ const addArticle = async (req, res, next) => {
 
 const getAllArticles = async (req, res, next) => {
     try {
-        const productDB = await firestore.collection('articles');
+        const productDB = await firestore.collection('articles').where("vendorId", "==", req.body.vendorId);
         await productDB.get().then((querySnapshot) => {
             const tempDoc = []
             querySnapshot.forEach((doc) => {

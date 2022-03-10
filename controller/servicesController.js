@@ -238,7 +238,7 @@ const deleteService = async (req, res, next) => {
 
 const getFeaturedServices = async (req, res) => {
     try {
-        const serviceDB = await firestore.collection('services').where('isFeatured', '==', 1);
+        const serviceDB = await firestore.collection('services').where('isFeatured', '==', 1).where("userId", "==", req.body.vendorId);
         await serviceDB.get().then((querySnapshot) => {
             const tempDoc = []
             querySnapshot.forEach((doc) => {
@@ -253,13 +253,14 @@ const getFeaturedServices = async (req, res) => {
 
 const addToFeaturedServices = async (req, res) => {
     try {
-        const { id } = req.body;
+        const { featuredServiceId, featuredServiceLocation } = req.body;
         const data = {
-            id: id,
+            id: featuredServiceId,
             isFeatured: 1,
+            featuredLocation:featuredServiceLocation
         };
 
-        await firestore.collection('services').doc(id).update(data).then(async () => {
+        await firestore.collection('services').doc(data.id).update(data).then(async () => {
             console.log("Document Updated successfully");
             res.send({ status: "active", data: data })
         })

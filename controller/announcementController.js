@@ -12,13 +12,16 @@ const addAnnouncement = async (req, res, next) => {
         const rawData = req.body;
         
         const {
+            vendorId,
             title,
             description
         } = req.body;
 
         const data = {
+            vendorId:vendorId,
             title:title,
-            description:description
+            description:description,
+            addedOn:Date.now()
         };
         console.log('data:' + JSON.stringify(data))
         await firestore.collection('announcements').add(data);
@@ -33,6 +36,25 @@ const addAnnouncement = async (req, res, next) => {
 const getAllAnnouncements = async (req, res, next) => {
     try {
         const staffDB = await firestore.collection('announcements');
+        await staffDB.get().then((querySnapshot) => {
+            const tempDoc = []
+            querySnapshot.forEach((doc) => {
+               tempDoc.push({ id: doc.id, ...doc.data() })
+            })
+            res.status(200).send({ status: "active", data: tempDoc });
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(400).send({ status: "inactive", data: error.message });
+    }
+
+}
+
+
+
+const getAllAnnouncementsByVendor = async (req, res, next) => {
+    try {
+        const staffDB = await firestore.collection('announcements').where("vendorId", "==", req.body.vendorId);
         await staffDB.get().then((querySnapshot) => {
             const tempDoc = []
             querySnapshot.forEach((doc) => {
@@ -103,5 +125,6 @@ module.exports = {
     getAllAnnouncements,
     getAnnouncement,
     updateAnnouncement,
-    deleteAnnouncement
+    deleteAnnouncement,
+    getAllAnnouncementsByVendor
 }

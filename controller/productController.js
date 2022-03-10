@@ -123,6 +123,7 @@ const addProduct = async (req, res, next) => {
                 options: options,
                 deliveryTerms: deliveryTerms,
                 isFeatured: 0,
+                featuredLocation:'',
                 isApproved: false,
                 addedOn: date,
                 updatedOn: dateTime,
@@ -413,7 +414,7 @@ const getFeaturedProducts = async (req, res) => {
     try {
         const productDB = await firestore
             .collection("products")
-            .where("isFeatured", "==", 1);
+            .where("isFeatured", "==", 1).where("userId", "==", req.body.vendorId);
         await productDB.get().then(querySnapshot => {
             const tempDoc = [];
             querySnapshot.forEach(doc => {
@@ -428,15 +429,16 @@ const getFeaturedProducts = async (req, res) => {
 
 const addToFeaturedProducts = async (req, res) => {
     try {
-        const { id } = req.body;
+        const { featuredProductId, featuredProductLocation } = req.body;
         const data = {
-            id: id,
+            id: featuredProductId,
             isFeatured: 1,
+            featuredLocation:featuredProductLocation
         };
 
         await firestore
             .collection("products")
-            .doc(id)
+            .doc(data.id)
             .update(data)
             .then(async () => {
                 console.log("Document Updated successfully");

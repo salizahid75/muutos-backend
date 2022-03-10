@@ -6,7 +6,7 @@ const router = express.Router();
 const multer = require('multer');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './upload/productImages');
+        cb(null, './upload/articleImages');
     },
     filename: function (req, file, cb) {
         cb(null, file.originalname);
@@ -25,8 +25,8 @@ const upload = multer({
     fileFilter: fileFilter
 });
 
-router.post('/article', upload.array('image', 10), addArticle);
-router.get('/allArticles', getAllArticles);
+router.post('/article', upload.array('files', 10), addArticle);
+router.post('/allArticles', getAllArticles);
 router.post('/articleById/', getArticle);
 router.post('/updateArticle/', updateArticle);
 router.post('/deleteArticleById', deleteArticle);
