@@ -22,6 +22,8 @@ const paymentRouter = require("./routes/payment-router");
 const adminRouter = require("./routes/admin-router");
 const reviewRouter = require("./routes/review-router");
 const operationRouter = require("./routes/operation-router");
+const aboutCMSRouter = require("./routes/cms/about-us/about-router");
+const careerCMSRouter = require("./routes/cms/career/career-router");
 
 const app = express();
 
@@ -47,6 +49,8 @@ app.use("/api", productRouters.routes);
 app.use("/api", adminRouter.routes);
 app.use("/api", reviewRouter.routes);
 app.use("/api", operationRouter.routes);
+app.use("/api", aboutCMSRouter.routes);
+app.use("/api", careerCMSRouter.routes);
 app.use("/upload", express.static("upload"));
 
 app.listen(config.port, () =>
