@@ -19,7 +19,7 @@ const router = express.Router();
 const multer = require("multer");
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, "./upload/productImages");
+        cb(null, "./upload/serviceImages");
     },
     filename: function (req, file, cb) {
         cb(null, file.originalname);
@@ -42,7 +42,7 @@ const upload = multer({
     fileFilter: fileFilter,
 });
 
-router.post("/service", upload.single("image"), addService);
+router.post("/service", upload.array("image"), addService);
 router.get("/allServices", getAllServices);
 router.post("/serviceById/", getService);
 router.post("/updateService/", updateService);
