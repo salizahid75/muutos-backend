@@ -146,27 +146,27 @@ const getAllStaff = async (req, res, next) => {
     }
 };
 
-// const getProduct = async (req, res, next) => {
-//     try {
-//         const id = req.body.id;
-//         const product = await firestore
-//             .collection("products")
-//             .doc(id)
-//             .get()
-//             .then(snapshot => {
-//                 if (snapshot.data() !== null && snapshot.data() !== undefined) {
-//                     res.send({ status: "active", data: snapshot.data() });
-//                 } else {
-//                     res.status(404).send({
-//                         status: "inactive",
-//                         message: "Product with Id not exit",
-//                     });
-//                 }
-//             });
-//     } catch (error) {
-//         res.status(400).send({ status: "inactive", data: error.message });
-//     }
-// };
+const getStaff = async (req, res, next) => {
+    try {
+        const id = req.body.id;
+        const product = await firestore
+            .collection("staff")
+            .doc(id)
+            .get()
+            .then(snapshot => {
+                if (snapshot.data() !== null && snapshot.data() !== undefined) {
+                    res.send({ status: "active", data: snapshot.data() });
+                } else {
+                    res.status(404).send({
+                        status: "inactive",
+                        message: "Staff with Id not exit",
+                    });
+                }
+            });
+    } catch (error) {
+        res.status(400).send({ status: "inactive", data: error.message });
+    }
+};
 
 // const updateProduct = async (req, res, next) => {
 //     var today = new Date();
@@ -275,33 +275,33 @@ const updateStaffById = async (req, res, next) => {
             .update(data)
             .then(async () => {
                 console.log("Document Updated successfully");
-                res.send({ status: "active" });
+                res.send({ status: "active", msg:"Staff Updated Successfully" });
             });
     } catch (error) {
         res.status(400).send({ status: "inactive", data: error.message });
     }
 };
 
-// const deleteProduct = async (req, res, next) => {
-//     try {
-//         const id = req.body.id;
-//         await firestore
-//             .collection("products")
-//             .doc(id)
-//             .delete()
-//             .then(async () => {
-//                 res.send({
-//                     status: "active",
-//                     data: "Product deleted successfully",
-//                 });
-//             })
-//             .catch(function (error) {
-//                 res.send({ status: "inactive", data: "Product Not Deleted" });
-//             });
-//     } catch (error) {
-//         res.status(400).send({ status: "inactive", data: error.message });
-//     }
-// };
+const deleteStaff = async (req, res, next) => {
+    try {
+        const id = req.body.id;
+        await firestore
+            .collection("staff")
+            .doc(id)
+            .delete()
+            .then(async () => {
+                res.send({
+                    status: "active",
+                    data: "Staff deleted successfully",
+                });
+            })
+            .catch(function (error) {
+                res.send({ status: "inactive", data: "Encountered Error While Updating Staff" });
+            });
+    } catch (error) {
+        res.status(400).send({ status: "inactive", data: error.message });
+    }
+};
 
 // const getFeaturedProducts = async (req, res) => {
 //     try {
@@ -460,10 +460,10 @@ const updateStaffById = async (req, res, next) => {
 module.exports = {
     addStaff,
     getAllStaff,
-    // getProduct,
+    getStaff,
     // updateProduct,
     updateStaffById,
-    // deleteProduct,
+    deleteStaff,
     // getFeaturedProducts,
     // addToFeaturedProducts,
     // removeFromFeaturedProducts,

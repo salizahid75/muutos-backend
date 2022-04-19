@@ -11,7 +11,8 @@ const {
     removeFromFeaturedProducts,
     getProductsByCategory,
     getCustomDateProducts,
-    updateProductFieldById
+    updateProductFieldById,
+    getAllFeaturedProducts
 } = require("../controller/productController");
 
 const router = express.Router();
@@ -58,6 +59,7 @@ router.post(
 );
 router.post("/deleteProductById", deleteProduct);
 router.post("/getFeaturedProducts", getFeaturedProducts);
+router.get("/getAllFeaturedProducts", getAllFeaturedProducts);
 router.post("/addToFeaturedProducts", addToFeaturedProducts);
 router.post("/updateProductFieldById", updateProductFieldById);
 router.post("/removeFromFeaturedProducts", removeFromFeaturedProducts);

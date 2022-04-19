@@ -140,6 +140,7 @@ const addProduct = async (req, res, next) => {
 };
 
 const getAllProducts = async (req, res, next) => {
+    
     try {
         let productDB = {};
         if (req?.query?.isFeatured) {
@@ -427,6 +428,23 @@ const getFeaturedProducts = async (req, res) => {
     }
 };
 
+const getAllFeaturedProducts = async (req, res) => {
+    try {
+        const productDB = await firestore
+            .collection("products")
+            .where("isFeatured", "==", 1);
+        await productDB.get().then(querySnapshot => {
+            const tempDoc = [];
+            querySnapshot.forEach(doc => {
+                tempDoc.push({ id: doc.id, ...doc.data() });
+            });
+            res.status(200).send({ status: "active", data: tempDoc });
+        });
+    } catch (error) {
+        res.status(400).send({ status: "inactive", data: error.message });
+    }
+};
+
 const addToFeaturedProducts = async (req, res) => {
     try {
         const { featuredProductId, featuredProductLocation } = req.body;
@@ -599,6 +617,7 @@ const updateProductFieldById = async (req, res, next) => {
 module.exports = {
     addProduct,
     getAllProducts,
+    getAllFeaturedProducts,
     getProduct,
     updateProduct,
     updateProductById,

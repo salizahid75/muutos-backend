@@ -149,6 +149,38 @@ const getSubCategoriesByCategoryId = async (req, res, next) => {
     }
 }
 
+const getProductCategories = async (req, res, next) => {
+    try {
+        const productCategories = await firestore.collection('categories').where('categoryFor', '==', 'product');
+        await productCategories.get().then((querySnapshot)=>{
+            const tempDoc = [];
+            querySnapshot.forEach((doc)=>{
+                tempDoc.push({id:doc.id, ...doc.data()});
+            })
+            res.status(200).send({status:"active", data:tempDoc});
+        })
+    } catch (error) {
+        res.status(400).send({status:'inactive', data:error.message})
+    }
+}
+
+const getServiceCategories = async (req, res, next) => {
+
+    try {
+        const serviceCategories = await firestore.collection('categories').where('categoryFor', '==', 'service');
+        await serviceCategories.get().then((querySnapshot)=>{
+            const tempDoc = [];
+            querySnapshot.forEach((doc)=>{
+                tempDoc.push({id:doc.id, ...doc.data()});
+            })
+            res.status(200).send({status:"active", data:tempDoc});
+        })
+    } catch (error) {
+        res.status(400).send({status:'inactive', data: error.message})
+    }
+
+}
+
 const deleteSubCategoryById = async (req, res, next) => {
     try {
         const id = req.body.id;
@@ -175,7 +207,6 @@ const updateCategoryFieldById = async (req, res, next) => {
     var dateTime = date + " " + time;
     try {
         const {key, value, id} = req.body
-        console.log(req.body)
         await firestore
             .collection("categories")
             .doc(id)
@@ -198,5 +229,7 @@ module.exports = {
     addSubCategory,
     getSubCategoriesByCategoryId,
     deleteSubCategoryById,
-    updateCategoryFieldById
+    updateCategoryFieldById,
+    getProductCategories,
+    getServiceCategories,
 }

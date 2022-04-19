@@ -26,13 +26,14 @@ module.exports = {
     host: HOST,
     url: HOST_URL,
     firebaseConfig: {
-        apiKey: "AIzaSyDeLDjboOy81ORMPEEUmT9hI2k9b1Iqibw",
-  authDomain: "bab-ul-ilm-technologies.firebaseapp.com",
-  databaseURL: "https://bab-ul-ilm-technologies-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "bab-ul-ilm-technologies",
-  storageBucket: "bab-ul-ilm-technologies.appspot.com",
-  messagingSenderId: "987453700886",
-  appId: "1:987453700886:web:782a691ac15bc2896b6e37",
-  measurementId: "G-P6RN1KGRNZ"
+        apiKey: API_KEY,
+        authDomain: AUTH_DOMAIN,
+        databaseURL: BUCKET_URL,
+        projectId: PROJECT_ID,
+        storageBucket: STORAGE_BUCKET,
+        messagingSenderId: MESSAGING_SENDER_ID,
+        appId: APP_ID,
+        measurementId: MEASUREMENT_ID
       }
+      // This is database configuration
 }

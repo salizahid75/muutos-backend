@@ -173,6 +173,7 @@ const updateServiceById = async (req, res, next) => {
 const getService = async (req, res, next) => {
     try {
         const id = req.body.id;
+        console.log(req.body)
         const serviceDB = await firestore.collection('services').doc(id).get().then(snapshot => {
             if (snapshot.data() !== null && snapshot.data() !== undefined) {
                 res.send({ status: "active", "data": snapshot.data() })
@@ -181,9 +182,10 @@ const getService = async (req, res, next) => {
             }
         });
     } catch (error) {
-        res.status(400).send({ status: "inactive", data: "Service is not defined " });
+        res.status(500).send({ status: "inactive", data: "Service is not defined " });
     }
 }
+
 
 const updateService = async (req, res, next) => {
     const { id } = req.body;
@@ -244,6 +246,21 @@ const deleteService = async (req, res, next) => {
 const getFeaturedServices = async (req, res) => {
     try {
         const serviceDB = await firestore.collection('services').where('isFeatured', '==', 1).where("userId", "==", req.body.vendorId);
+        await serviceDB.get().then((querySnapshot) => {
+            const tempDoc = []
+            querySnapshot.forEach((doc) => {
+                tempDoc.push({ id: doc.id, ...doc.data() })
+            })
+            res.status(200).send({ status: "active", data: tempDoc });
+        })
+    } catch (error) {
+        res.status(400).send({ status: "inactive", "data": error.message });
+    }
+}
+
+const getAllFeaturedServices = async (req, res) => {
+    try {
+        const serviceDB = await firestore.collection('services').where('isFeatured', '==', 1);
         await serviceDB.get().then((querySnapshot) => {
             const tempDoc = []
             querySnapshot.forEach((doc) => {
@@ -385,6 +402,7 @@ module.exports = {
     updateServiceById,
     deleteService,
     getFeaturedServices,
+    getAllFeaturedServices,
     addToFeaturedServices,
     removeFromFeaturedServices,
     getServiceByType,

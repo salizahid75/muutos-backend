@@ -123,6 +123,22 @@ const deleteArticle = async (req, res, next) => {
 
 const getFeaturedArticles = async (req, res) => {
     try {
+        const productDB = await firestore.collection('articles').where('isFeatured','==', 1).where("userId", "==", req.body.vendorId);
+        await productDB.get().then((querySnapshot) => {
+            const tempDoc = []
+            querySnapshot.forEach((doc) => {
+               tempDoc.push({ id: doc.id, ...doc.data() })
+            })
+            res.status(200).send({ status: "active", data: tempDoc });
+        })
+    } catch (error) {
+        res.status(400).send({ status: "inactive", "data": error.message });
+    }
+}
+
+
+const getAllFeaturedArticles = async (req, res) => {
+    try {
         const productDB = await firestore.collection('articles').where('isFeatured','==', 1);
         await productDB.get().then((querySnapshot) => {
             const tempDoc = []
@@ -135,6 +151,8 @@ const getFeaturedArticles = async (req, res) => {
         res.status(400).send({ status: "inactive", "data": error.message });
     }
 }
+
+
 
 const addToFeaturedArticles = async (req, res) => {
     try {
@@ -179,4 +197,5 @@ module.exports = {
     getFeaturedArticles,
     addToFeaturedArticles,
     removeFromFeaturedArticles,
+    getAllFeaturedArticles,
 }

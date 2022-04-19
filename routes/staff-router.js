@@ -2,10 +2,10 @@ const express = require("express");
 const {
     addStaff,
     getAllStaff,
-    // getStaff,
+    getStaff,
     // updateStaff,
     updateStaffById,
-    // deleteStaff,
+    deleteStaff,
     // addToFeaturedStaffs,
     // getFeaturedStaffs,
     // removeFromFeaturedStaffs,
@@ -48,10 +48,10 @@ const upload = multer({
 
 router.post("/staff", upload.array("image", 10), addStaff);
 router.get("/allStaff", getAllStaff);
-// router.post("/staffById/", getStaff);
+router.post("/staffById/", getStaff);
 // router.post("/updateStaff/", upload.array("image", 10), updateStaff);
 router.post("/updateStaffById/", upload.array("image", 10), updateStaffById);
-// router.post("/deleteStaffById", deleteStaff);
+router.post("/deleteStaffById", deleteStaff);
 // router.get("/getFeaturedStaffs", getFeaturedStaffs);
 // router.post("/addToFeaturedStaffs", addToFeaturedStaffs);
 // router.post("/removeFromFeaturedStaffs", removeFromFeaturedStaffs);

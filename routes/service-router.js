@@ -11,7 +11,8 @@ const {
     getServiceByType,
     getCustomDateServices,
     updateServiceById,
-    updateServiceFieldById
+    updateServiceFieldById,
+    getAllFeaturedServices
 } = require("../controller/servicesController");
 
 const router = express.Router();
@@ -54,6 +55,7 @@ router.post(
 router.post("/updateServiceFieldById", updateServiceFieldById);
 router.post("/deleteServiceById/", deleteService);
 router.post("/getFeaturedServices", getFeaturedServices);
+router.get("/getAllFeaturedServices", getAllFeaturedServices);
 router.post("/addToFeaturedServices", addToFeaturedServices);
 router.post("/removeFromFeaturedServices", removeFromFeaturedServices);
 router.post("/getServiceByType", getServiceByType);

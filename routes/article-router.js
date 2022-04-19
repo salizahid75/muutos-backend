@@ -1,5 +1,5 @@
 const express = require('express');
-const { addArticle, getAllArticles, getArticle, updateArticle, deleteArticle, addToFeaturedArticles, getFeaturedArticles, removeFromFeaturedArticles } = require('../controller/articlesController');
+const { addArticle, getAllArticles, getArticle, updateArticle, deleteArticle, addToFeaturedArticles, getFeaturedArticles, removeFromFeaturedArticles, getAllFeaturedArticles } = require('../controller/articlesController');
 
 const router = express.Router();
 
@@ -30,7 +30,8 @@ router.post('/allArticles', getAllArticles);
 router.post('/articleById/', getArticle);
 router.post('/updateArticle/', updateArticle);
 router.post('/deleteArticleById', deleteArticle);
-router.get('/getFeaturedArticles', getFeaturedArticles);
+router.post('/getFeaturedArticles', getFeaturedArticles);
+router.get('/getAllFeaturedArticles', getAllFeaturedArticles);
 router.post('/addToFeaturedArticles', addToFeaturedArticles);
 router.post('/removeFromFeaturedArticles', removeFromFeaturedArticles);
 

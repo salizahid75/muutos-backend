@@ -27,7 +27,7 @@ const addComment = async (req, res, next) => {
             author:author,
             likes:likes,
         }
-        console.log('data:' + JSON.stringify(data))
+        console.log(req.body)
         await firestore.collection('comments').add(data);
         res.send({ status: "active", data: 'Comment added successfully.' })
     }

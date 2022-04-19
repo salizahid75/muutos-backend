@@ -1,5 +1,5 @@
 const express = require('express');
-const { addCategory , getAllCategories, getCategory, updateCategory, deleteCategory, addSubCategory, getSubCategoriesByCategoryId, deleteSubCategoryById, updateCategoryFieldById } = require('../controller/categoryProductController');
+const { addCategory , getAllCategories, getCategory, updateCategory, deleteCategory, addSubCategory, getSubCategoriesByCategoryId, deleteSubCategoryById, updateCategoryFieldById, getProductCategories, getServiceCategories } = require('../controller/categoryProductController');
 
 const router = express.Router();
 
@@ -29,6 +29,8 @@ const upload = multer({
 
 router.post('/category', upload.single('image'), addCategory);
 router.get('/allCategories', getAllCategories);
+router.get('/getProductCategories', getProductCategories);
+router.get('/getServiceCategories', getServiceCategories);
 router.post('/categoryById/', getCategory);
 router.post('/updateCategory/', updateCategory);
 router.post('/deleteCategoryById/', deleteCategory);
